@@ -1,95 +1,95 @@
 package com.akp.concurrency;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
+/**
+ * A future represents the pending result od an asynchronous computation. It offers a method get() that results of the computation nce its done.
+ * The problem is that calling to get() will cause the current tread to wait until the computation is done.
+ */
 public class FutureExample {
-	public static void main(String[] args) throws InterruptedException, ExecutionException {
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
 
-		//callableExample();
-		
-		runnableExample();
+        //callableExample();
 
-	}
+        runnableExample();
 
-	private static void runnableExample() throws InterruptedException, ExecutionException {
-		ExecutorService executorService = Executors.newFixedThreadPool(2);
+    }
 
-		Runnable evenRunnable = () -> {
-			for (int i = 1; i < 11; i++) {
-				try {
-					Thread.sleep(4000L);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				if (i % 2 == 0) {
-					System.out.println(i + " -> even");
-				}
-			}
-		};
+    private static void runnableExample() throws InterruptedException, ExecutionException {
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
 
-		Runnable oddRunnable = () -> {
-			for (int i = 1; i < 11; i++) {
-				try {
-					Thread.sleep(1000L);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				if (i % 2 != 0) {
-					System.out.println(i + " -> odd");
-				}
-			}
-		};
+        Runnable evenRunnable = () -> {
+            for (int i = 1; i < 11; i++) {
+                try {
+                    Thread.sleep(4000L);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (i % 2 == 0) {
+                    System.out.println(i + " -> even");
+                }
+            }
+        };
 
-		Future<?> evenFuture = executorService.submit(evenRunnable);
+        Runnable oddRunnable = () -> {
+            for (int i = 1; i < 11; i++) {
+                try {
+                    Thread.sleep(1000L);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (i % 2 != 0) {
+                    System.out.println(i + " -> odd");
+                }
+            }
+        };
 
-		Future<?> oddFuture = executorService.submit(oddRunnable);
+        Future<?> evenFuture = executorService.submit(evenRunnable);
 
-		System.out.println("evenStr : " + evenFuture.get());
+        Future<?> oddFuture = executorService.submit(oddRunnable);
 
-		System.out.println("oddStr : " + oddFuture.get());
+        System.out.println("evenStr : " + evenFuture.get());
 
-		executorService.shutdownNow();
-	}
+        System.out.println("oddStr : " + oddFuture.get());
 
-	private static void callableExample() throws InterruptedException, ExecutionException {
-		ExecutorService executorService = Executors.newFixedThreadPool(2);
+        executorService.shutdownNow();
+    }
 
-		Callable<String> evenCallable = () -> {
-			for (int i = 1; i < 11; i++) {
-				Thread.sleep(4000L);
-				if (i % 2 == 0) {
-					System.out.println(i + " -> even");
-				}
-			}
-			return "even printer ended";
-		};
+    private static void callableExample() throws InterruptedException, ExecutionException {
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
 
-		Callable<String> oddCallable = () -> {
-			for (int i = 1; i < 11; i++) {
-				Thread.sleep(1000L);
-				if (i % 2 != 0) {
-					System.out.println(i + " -> odd");
-				}
-			}
-			return "odd printer ended";
-		};
+        Callable<String> evenCallable = () -> {
+            for (int i = 1; i < 11; i++) {
+                Thread.sleep(4000L);
+                if (i % 2 == 0) {
+                    System.out.println(i + " -> even");
+                }
+            }
+            return "even printer ended";
+        };
 
-		Future<String> evenFuture = executorService.submit(evenCallable);
+        Callable<String> oddCallable = () -> {
+            for (int i = 1; i < 11; i++) {
+                Thread.sleep(1000L);
+                if (i % 2 != 0) {
+                    System.out.println(i + " -> odd");
+                }
+            }
+            return "odd printer ended";
+        };
 
-		Future<String> oddFuture = executorService.submit(oddCallable);
+        Future<String> evenFuture = executorService.submit(evenCallable);
 
-		String evenStr = evenFuture.get();
+        Future<String> oddFuture = executorService.submit(oddCallable);
 
-		System.out.println("evenStr : " + evenStr);
+        String evenStr = evenFuture.get();
 
-		String oddStr = oddFuture.get();
+        System.out.println("evenStr : " + evenStr);
 
-		System.out.println("oddStr : " + oddStr);
+        String oddStr = oddFuture.get();
 
-		executorService.shutdownNow();
-	}
+        System.out.println("oddStr : " + oddStr);
+
+        executorService.shutdownNow();
+    }
 }

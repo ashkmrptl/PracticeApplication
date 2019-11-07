@@ -1,4 +1,4 @@
-package com.akp.patterns.iterator;
+package com.akp.design_patterns.iterator;
 
 class Main {
 	public static void main(String args[]) {

@@ -1,4 +1,4 @@
-package com.akp.patterns.singleton;
+package com.akp.design_patterns.singleton;
 
 import java.io.Serializable;
 

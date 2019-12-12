@@ -11,44 +11,39 @@ public class LevelOrderTraversal {
         Node left;
         Node right;
 
-        public Node(int value) {
+        Node(int value) {
             this.value = value;
         }
     }
 
-    private int height(Node root) {
+    private int getHeight(Node root) {
         if (root == null) {
             return 0;
-        } else {
-            //Computing the height of each sub-tree
-            int lHeight = height(root.left);
-            int rHeight = height(root.right);
-
-            //Taking the largest one
-            if (lHeight > rHeight) {
-                return ++lHeight;
-            } else {
-                return ++rHeight;
-            }
         }
+
+        int leftHeight = getHeight(root.left);
+        int rightHeight = getHeight(root.right);
+
+        return Math.max(leftHeight + 1, rightHeight + 1);
     }
 
-    public void printLevelOrder(Node root) {
-        int h = height(root);
-        for (int i = 1; i <= h; i++) {
+    private void printLevelOrder() {
+        int height = getHeight(root);
+        for (int i = 1; i <= height; i++) {
             printGivenLevel(root, i);
         }
     }
 
-    public void printGivenLevel(Node root, int level) {
-        if (root == null) {
+    private void printGivenLevel(Node node, int level) {
+        if (node == null) {
             return;
         } else if (level == 1) {
-            System.out.println(root.value);
+            System.out.println(node.value);
         } else if (level > 1) {
-            printGivenLevel(root.left, level - 1);
-            printGivenLevel(root.right, level - 1);
+            printGivenLevel(node.left, level - 1);
+            printGivenLevel(node.right, level - 1);
         }
+
     }
 
     public static void main(String[] args) {
@@ -59,7 +54,8 @@ public class LevelOrderTraversal {
         lot.root.left.left = new Node(4);
         lot.root.left.right = new Node(5);
 
-        lot.printLevelOrder(lot.root);
+        System.out.println("height : " + lot.getHeight(lot.root));
+        lot.printLevelOrder();
     }
 
 }

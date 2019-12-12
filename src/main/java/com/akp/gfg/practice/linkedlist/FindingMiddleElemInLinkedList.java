@@ -1,3 +1,4 @@
+package com.akp.gfg.practice.linkedlist;
 
 public class FindingMiddleElemInLinkedList {
 	Node head;

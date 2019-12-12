@@ -1,4 +1,4 @@
-package com.akp.gfg.practice.arraysandsearching;
+package com.akp.gfg.practice.arrays;
 
 import java.util.Arrays;
 import java.util.Comparator;

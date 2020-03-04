@@ -1,0 +1,5 @@
+
+V
+squid:S106"9Replace this use of System.out or System.err by a logger.(‚¨Ö§8æ ª‰ÿ-
+Xsquid:S1854"5Remove this useless assignment to local variable "n".(÷Èäæùÿÿÿÿ8ˆÀ“‰ÿ-
+Isquid:S1481"&Remove this unused "n" local variable.(÷Èäæùÿÿÿÿ8‰À“‰ÿ-

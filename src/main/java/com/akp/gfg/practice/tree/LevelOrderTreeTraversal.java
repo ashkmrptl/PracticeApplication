@@ -100,6 +100,32 @@ public class LevelOrderTreeTraversal {
         }
     }
 
+    public static void printLevelOrderInSpiralFashion(Node root) {
+        int height = getHeight(root);
+        boolean ltr = false;
+        for (int i = 1; i <= height; i++) {
+            printGivenLevelInSpiralFashion(root, i, ltr);
+            ltr = !ltr;
+        }
+    }
+
+    private static void printGivenLevelInSpiralFashion(Node root, int level, boolean ltr) {
+        if (root == null) {
+            return;
+        } else if (level == 1) {
+            System.out.print(root.value + " ");
+        } else if (level > 1) {
+            if (ltr) {
+                printGivenLevelInSpiralFashion(root.left, level - 1, ltr);
+                printGivenLevelInSpiralFashion(root.right, level - 1, ltr);
+            } else {
+                printGivenLevelInSpiralFashion(root.right, level - 1, ltr);
+                printGivenLevelInSpiralFashion(root.left, level - 1, ltr);
+            }
+
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int t = Integer.parseInt(br.readLine());
@@ -113,6 +139,9 @@ public class LevelOrderTreeTraversal {
 
             System.out.println("\nLevel order line by line : ");
             printLevelOrderLineByLine(root);
+
+            System.out.println("\nLevel order spiral : ");
+            printLevelOrderInSpiralFashion(root);
         }
 
     }

@@ -13,7 +13,7 @@ public class ReverseAnArray {
             int n = Integer.parseInt(br.readLine());
             String[] arr = br.readLine().split("\\s");
 
-            for (int i = 0, j = arr.length - 1; i <= arr.length / 2; i++, j--) {
+            for (int i = 0, j = arr.length - 1; i < arr.length / 2; i++, j--) {
                 String temp = arr[i];
                 arr[i] = arr[j];
                 arr[j] = temp;

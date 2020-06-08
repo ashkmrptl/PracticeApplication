@@ -1,0 +1,4 @@
+
+U	java:S106"9Replace this use of System.out or System.err by a logger.(�뤏8ߐ.
+�
+java:S2159"zRemove this call to "equals"; comparisons against null always return false; consider using '== null' to check for nullity.(�뤏8ߐ.

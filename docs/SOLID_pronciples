@@ -1,0 +1,30 @@
+SOLID is the acronym for a set of practices that, when implemented together, makes the code more adaptive to change.
+
+S - Single responsibility : One class should have one and only one responsibility
+O - Open for extension Closed for modification : Classes should be open for extension but closed for modification
+L - Liskov's substitute : Derived types must be completely substitutable for their base types
+I - Interface Segregation : Clients should not be forced to implement unnecessary methods which they will not use
+D - Dependency Inversion : Depend on abstraction not on concentration
+
+1) Single Responsibility :
+    This principle states that a class should only have one responsibility. Furthermore, it should only have one reason to change.
+    Benefits of this principle :
+        Testing : A class with one responsibility will have far fewer test cases
+        Lower Coupling : Less functionality in a single class will have fewer dependencies
+        Organization : Smaller, well-organized classes are easier to search than monolith ones
+
+2) Open for extension, Closed for modification :
+    It is more formally known as open-closed principle. Simply put, classes should be open for extension, but closed for modification.
+    In doing so, we stop ourselves from modifying existing code and causing potential new bugs.
+
+3) Liskov's Substitution :
+    This principle is most complex of the 5 principles. Simply put, if class A is subtype of class B, the we should be able to replace
+    B with A without disrupting the behaviour of our program.
+
+4) Interface Segregation :
+    This principle says that the larger interfaces should be split into smaller ones. By doing so, we can ensure that implementing
+    classes only need to be concerned about the methods those are of interest to them.
+
+5) Dependency Inversion :
+    The principle of dependency inversion refers to the decoupling of software modules. This way, instead of high-level modules
+    depending on low-level modules, both will depend on abstraction.

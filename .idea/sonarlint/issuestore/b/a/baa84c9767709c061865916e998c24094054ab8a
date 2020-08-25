@@ -1,5 +1,0 @@
-
-„
-java:S4165"bRemove this useless assignment; "next" already holds the assigned value along all execution paths.(Œ¦ãßşÿÿÿÿ8ÛÙÄØˆ.
-U	java:S106)"9Replace this use of System.out or System.err by a logger.(•”Ë¸8ÛÙÄØˆ.
-T	java:S106*"9Replace this use of System.out or System.err by a logger.(ÓŒôL8ÛÙÄØˆ.

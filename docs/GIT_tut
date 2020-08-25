@@ -1,0 +1,44 @@
+Git command for creating branch:
+	1) Fork the repo want to checkout
+	2) Clone it to Local
+	3) git branch
+		- to check the branch, it should be *master
+	4) git checkout -b development
+		- it will create local branch with name "development"
+	5) Take repo URL from the original branch from where we have forked our branch from clone section
+	6) git remote add upstream <url_from_step5>
+	7) git remote -v
+		- to check upstream details
+	8) git checkout -b <branch_name_with_jira_story>
+		- will create a new local branch
+	9) git pull upstream development
+		- to get updated code from development branch
+------------------------------------------------------------------------------------------------------------------------
+
+Git command for commit:
+	1) git add -u (-u to add updated files)
+	2) git reset HEAD <file_name_need_not_to_commit>
+	3) git commit
+	4) git push origin HEAD -f
+
+Git command to amend(i.e. to update the previous commit if re-commit required, this way we won't have multiple commits
+and squashing isn't required):
+	1) git status
+	2) git add <file_name_to_commit>
+	3) git commit --amend
+	4) git push HEAD -f
+
+------------------------------------------------------------------------------------------------------------------------
+
+Squashing multiple commits into one:
+	git log
+  	git reset --soft HEAD^^ (Info : ^ operator defines no of commits to squash)
+	git status
+	git commit
+	git push origin HEAD -f
+
+Update forked branch with development:
+# Fetch from upstream remote
+1) git fetch upstream
+2) git pull upstream development
+3) git push origin development

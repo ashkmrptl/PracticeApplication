@@ -1,5 +1,0 @@
-
-U	java:S1066"9Replace this use of System.out or System.err by a logger.(õŠ¬8­Å²ÊŒ.
-Z	java:S1069"9Replace this use of System.out or System.err by a logger.(åö¡½úÿÿÿÿ8ÙŒÅÊŒ.
-|
-java:S11494"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(í…Ò‰8˜ôÂÊŒ.

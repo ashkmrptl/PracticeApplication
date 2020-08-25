@@ -1,7 +1,0 @@
-
-Z	java:S106#"9Replace this use of System.out or System.err by a logger.(ÆÆƒÆüÿÿÿÿ8ÛÙÄØˆ.
-Z	java:S106+"9Replace this use of System.out or System.err by a logger.(æ… Çúÿÿÿÿ8ÛÙÄØˆ.
-8
-java:S36263"Remove this redundant jump.(ûÁİ…8ÛÙÄØˆ.
-U	java:S1065"9Replace this use of System.out or System.err by a logger.(Û€øÍ8ÛÙÄØˆ.
-Z	java:S106H"9Replace this use of System.out or System.err by a logger.(Ã™ûÛÿÿÿÿÿ8ÛÙÄØˆ.

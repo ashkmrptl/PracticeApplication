@@ -1,0 +1,25 @@
+Spring provides both programmatic and declarative transaction management.
+
+a) Programmatic transaction management :
+    With this approach, the transaction management code needs to be explicitly written so as to commit when everything
+    is successful and rolling back when something goes wrong. The transaction management code is tightly bound to the
+    business logic in this case.
+
+b) Declarative transaction management :
+    This approach separates transaction management code from the business logic. Spring supports declarative
+    transactions using transaction advice(using APO) via XML configuration in spring context or with @Transactional
+    annotation.
+
+Understanding @Transactional annotation :
+    At a high level, when a class declares @Transactional on itself or its members, Spring creates a proxy that
+    implements the same interface(s) as the class we're annotating. In other words, Spring wraps the bean in the
+    proxy and the bean itself has no knowledge of it. A proxy provides a way for Spring to inject behaviours before,
+    after, or around method calls into the object being proxied.
+
+    Internally, its the same as using a transaction advice (using AOP), where a proxy is created first and is invoked
+    before/after the target bean’s method.
+
+    The generated proxy object is supplied with a TransactionInterceptor, which is created by Spring. So when the
+    @Transactional method is called from client code, the TransactionInterceptor gets invoked first from the proxy
+    object, which begins the transaction and eventually invokes the method on the target bean. When the invocation
+    finishes, the TransactionInterceptor commits/rolls back the transaction accordingly.

@@ -1,0 +1,64 @@
+    We will use cas1, cas2 and cas3 as the node names and the name of our cassandra cluster will be "MyCluster". We will
+also configure cas1 and cas2 like they are placed in datacenter1 and cas3 like it is placed in datacenter2. So we will
+have 3 nodes, two of them in datacenter1 and one in datacenter2(to be able to test multi-DC replication support of
+Cassandra). For multi-DC support, my cassandra nodes will use "GossipingPropertyFileSnitch". These extra information
+can be passed to docker containers using environment variables (with -e parameter).
+
+Now we can start the first node by following command.
+
+docker run --name cas1 -p 9042:9042 -e CASSANDRA_CLUSTER_NAME=MyCluster
+-e CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch -e CASSANDRA_DC=datacenter1 -d cassandra
+
+The -p parameter is for publishing the container's port to the host, so we would be able to connect to cassandra service
+from the outside of the docker container (for example using datastax Studio or DevCenter). After first node is up, We'll
+add the cas2 and cas3 nodes but we need to tell them the IP address of cas1, so they can use it as the seed node and
+join to the cluster.
+
+The following command can be used to find the IP address of cas1.
+
+docker inspect --format='{{ .NetworkSettings.IPAddress }}' cas1
+
+We will add it to docker run command strings for cas2 and cas3.
+
+docker run --name cas2 -e CASSANDRA_SEEDS="$(docker inspect --format='{{ .NetworkSettings.IPAddress }}' cas1)"
+-e CASSANDRA_CLUSTER_NAME=MyCluster -e CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch -e CASSANDRA_DC=datacenter1
+-d cassandra
+
+docker run --name cas3 -e CASSANDRA_SEEDS="$(docker inspect --format='{{ .NetworkSettings.IPAddress }}' cas1)"
+-e CASSANDRA_CLUSTER_NAME=MyCluster -e CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch -e CASSANDRA_DC=datacenter2
+-d cassandra
+
+Notice that we have given a different datacenter name while creating cas3 node. We have to run them one by one and give
+time to new nodes to join the cluster, and then we can run "nodetool status" command from cas1 (or any other node).
+    docker exec -ti cas1 nodetool status
+
+The above command, connects to cas1 node and runs "nodetool status".
+
+Creating keyspace :
+-------------------
+    Keyspace in cassandra is similar to database in RDBMS. Now we'll create keyspace which will be replicated to
+datacenter1 and datacenter2, and a table in this newly created keyspace. We'll use NetworkTopologyStrategy for replicating
+data. Here is CQL (Cassandra query language) commands to create the keyspace and the table.
+
+    CREATE KEYSPACE mykeyspace
+    WITH replication = {
+        'class' : 'NetworkTopologyStrategy',
+        'datacenter1' : 1,
+        'datacenter2' : 2
+    };
+
+    CREATE TABLE mykeyspace.mytable (
+        id int primary key,
+        name text
+    );
+
+We can execute these commands using cqlsh by connection one of our nodes:
+
+    docker exec -ti cas1 cqlsh
+
+Or we can execute them using a client program such as DevCenter(we need to register to DataStax website to be able to
+download it).
+
+After creating the keyspace we can use "nodetool status" to check its distribution.
+
+    docker exec -ti cas1 nodetool status mykeyspace

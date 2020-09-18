@@ -23,3 +23,51 @@ Understanding @Transactional annotation :
     @Transactional method is called from client code, the TransactionInterceptor gets invoked first from the proxy
     object, which begins the transaction and eventually invokes the method on the target bean. When the invocation
     finishes, the TransactionInterceptor commits/rolls back the transaction accordingly.
+
+Transaction Propagation :
+-------------------------
+    Transaction propagation defines the business logic's transaction boundary. Spring manages to start and pause a
+transaction according to our propagation setting.
+Spring calls TransactionManager::getTransaction to get or create transaction according to the propagation.
+
+Following are the propagations and how they work.
+
+    1) REQUIRED Propagation (@Transactional(propagation = Propagation.REQUIRED)) :
+    ------------------------------------------------------------------------------
+        REQUIRED is the default propagation. Spring checks if there is an active transaction, then it creates a new one
+    if nothing existed. Otherwise, the business logic appends to the currently active transaction.
+
+    2) SUPPORTS Propagation (@Transactional(propagation = Propagation.SUPPORTS)) :
+    ------------------------------------------------------------------------------
+        For this type spring first checks if any active transaction exists. If a transaction exists, then the existing
+    transaction will be used. If there is no transaction available then it executed without any transaction.
+
+    3) MANDATORY Propagation (@Transactional(propagation = Propagation.MANDATORY)) :
+    --------------------------------------------------------------------------------
+        When the propagation is MANDATORY, if there is an active transaction, then it will be used. If there is no active
+    transaction found, then it throws Exception.
+
+    4) NEVER Propagation (@Transactional(propagation = Propagation.NEVER)) :
+    ------------------------------------------------------------------------
+        For transactional logic with NEVER propagation, spring throws an exception if there is an active transaction is
+    found.
+
+    5) NOT_SUPPORTED Propagation (@Transactional(propagation = Propagation.NOT_SUPPORTED)) :
+    ----------------------------------------------------------------------------------------
+        If any active transaction is found, then for this propagation spring suspends it, and the execute the logic
+    without any transaction.
+
+    6) REQUIRES_NEW Propagation (@Transactional(propagation = Propagation.REQUIRES_NEW)) :
+    --------------------------------------------------------------------------------------
+        When the propagation level is REQUIRES_NEW, spring suspends if any active transaction is found and then creates
+    a new transaction and executes the business login with in newly created transaction boundary.
+
+    7) NESTED Propagation (@Transactional(propagation = Propagation.NESTED)) :
+    --------------------------------------------------------------------------
+        For this type of propagation, spring checks if transaction exists, if yes then it marks a savepoint. This means
+    if the business logic execution throws an exception, then transaction roll-backs to the savepoint. If no active
+    transaction is found then it works like REQUIRED propagation.
+
+Transaction Isolation :
+-----------------------
+    Isolation is one of the common ACID property.

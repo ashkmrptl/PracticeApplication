@@ -61,7 +61,7 @@ public class DistinctElementsInEveryWindow {
             for (int j = i; j < i + k; j++) {
                 set.add(array[j]);
             }
-            System.out.print(set.stream().count() + " ");
+            System.out.print(set.size() + " ");
             set = new HashSet<>();
         }
     }
